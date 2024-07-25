@@ -1,0 +1,56 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+ class minorista {
+    public:
+    char cant_produc[50];
+    char id_produc [50];
+    public:
+    void registro();
+
+};
+void minorista::registro(){
+   for(int f=0;f < 1;f++) 
+    {
+      minorista minorista;
+      cout<<" ";
+  cout <<"\n  \n";
+  cin.getline(id_produc, 50);//guardar los datos
+  cout <<"\n ingresar cantidad de productos: \n";
+  cin.getline(cant_produc, 50);
+  cout <<"\n ingresar numero de id del producto: \n";
+  cin.getline(id_produc, 50);
+       
+  ofstream archivoSalida("datos.bin", ios::binary);//crear archivo binario
+  if (archivoSalida.is_open()) {//abrir archiv
+  archivoSalida.write(reinterpret_cast<const char*>(&minorista), sizeof(minorista));
+      
+	archivoSalida.close();
+  cout << "Archivo guardado correctamente." << endl;
+        } else {
+          cout << "No se pudo abrir el archivo." << endl;
+        }
+  ifstream archivoEntrada("datos.bin", ios::binary);
+  if (archivoEntrada.is_open()) {
+  
+    archivoEntrada.read(reinterpret_cast<char*>(&minorista), sizeof(minorista));
+    archivoEntrada.close();
+    cout << "cantidad de producto: " << cant_produc << endl;
+    cout << "id de producto: " << id_produc << endl;
+    } else {
+        cout << "No se pudo abrir el archivo." << endl;
+    }
+    }
+     
+}
+
+int main() {
+minorista registro1;
+cout<<"REGISTRAR Y MOSTRAR MINORISTA: "<<endl;
+cout<<"Oprimir enter para proceder "<<endl;
+registro1.registro();
+  
+
+    return 0;
+}
